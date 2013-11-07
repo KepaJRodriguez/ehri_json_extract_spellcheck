@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="UTF-8"?>
+<?xml version='2.0' encoding="UTF-8"?>
 <!--
 //*****************************************************************************
 // Copyright 2013 by Junte Zhang <junte.zhang@meertens.knaw.nl>
