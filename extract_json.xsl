@@ -32,11 +32,24 @@
       </xsl:choose>
     </xsl:variable>
     
-    <xsl:variable name="chi" select="replace(relationships/heldBy/relationships/describes/data/@name, '/', '')"/>
+    <xsl:variable name="chi">
+      <xsl:choose> 
+        <xsl:when test="relationships/heldBy/relationships/describes/data/@name = ''">
+          <xsl:text>unknown</xsl:text>
+        </xsl:when>
+        <xsl:when test="not(relationships/heldBy/relationships/describes/data/@name)">
+          <xsl:text>unknown</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="replace(relationships/heldBy/relationships/describes/data/@name, '/', '')"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
     <xsl:variable name="id" select="@id"/>
         
     <!-- archivalHistory-->
-    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$lang}.{$chi}.{$id}.archivalHistory.txt">
+    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$chi}.{$id}.archivalHistory.txt">
         <!-- do not print empty lines -->
         <xsl:if test="relationships/describes/data/@archivalHistory != ''">
           <xsl:value-of select="relationships/describes/data/@archivalHistory"/>
@@ -45,7 +58,7 @@
     </xsl:result-document>
     
     <!-- biographicalHistory -->
-    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$lang}.{$chi}.{$id}.biographicalHistory.txt">
+    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$chi}.{$id}.biographicalHistory.txt">
         <!-- do not print empty lines -->
         <xsl:if test="relationships/describes/data/@biographicalHistory != ''">
           <xsl:value-of select="relationships/describes/data/@biographicalHistory"/>
@@ -54,7 +67,7 @@
     </xsl:result-document>        
     
     <!-- scopeAndContent -->
-    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$lang}.{$chi}.{$id}.scopeAndContent.txt">
+    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$chi}.{$id}.scopeAndContent.txt">
         <!-- do not print empty lines -->
         <xsl:if test="relationships/describes/data/@scopeAndContent != ''">
           <xsl:value-of select="relationships/describes/data/@scopeAndContent"/>
@@ -63,7 +76,7 @@
     </xsl:result-document>           
 
     <!-- archivistNote -->
-    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$lang}.{$chi}.{$id}.archivistNote.txt">
+    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$chi}.{$id}.archivistNote.txt">
         <!-- do not print empty lines -->
         <xsl:if test="relationships/describes/data/@archivistNote != ''">
           <xsl:value-of select="relationships/describes/data/@archivistNote"/>
@@ -81,7 +94,7 @@
     </xsl:result-document>   
   
     <!-- ead_archdesc_did_abstract_ --> 
-    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$lang}.{$chi}.{$id}.abstract_.txt">
+    <xsl:result-document method="text" href="../data/documentaryUnit_split/{$chi}.{$id}.abstract_.txt">
         <!-- do not print empty lines -->
         <xsl:if test="relationships/describes/descendant::data/@ead_archdesc_did_abstract_ != ''">
           <xsl:value-of select="relationships/describes/descendant::data/@ead_archdesc_did_abstract_"/>
